@@ -1,6 +1,10 @@
 
+type TechnologiesContent = {
+  myTechnologies: string;
+};
+
 interface TechnologiesSectionProps {
-  content: any;
+  content: TechnologiesContent;
 }
 
 const technologies = [

@@ -1,8 +1,15 @@
 
 import { ChevronDown } from "lucide-react";
 
+type HeaderContent = {
+  home: string;
+  about: string;
+  projects: string;
+  language: string;
+};
+
 interface HeaderProps {
-  content: any;
+  content: HeaderContent;
   language: string;
   setLanguage: (lang: string) => void;
   showLanguageDropdown: boolean;

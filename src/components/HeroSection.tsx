@@ -1,7 +1,11 @@
 import React from "react";
 
+type HeroContent = {
+  devopsTitle: string;
+};
+
 interface HeroSectionProps {
-  content: any;
+  content: HeroContent;
   language?: string;
 }
 
