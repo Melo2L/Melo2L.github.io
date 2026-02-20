@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image
-        run: docker build -t ghcr.io/${{ github.repository_owner }}/devops-portfolio:latest .
+        run: docker build -t ghcr.io/melo2l/devops-portfolio:latest .
 
       - name: Push image
-        run: docker push ghcr.io/${{ github.repository_owner }}/devops-portfolio:latest
+        run: docker push ghcr.io/melo2l/devops-portfolio:latest
