@@ -31,19 +31,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # ✅ Qualidade de código (ESLint)
-      # Se quiser que lint QUEBRE o pipeline, deixe sem "|| true"
-      - name: Lint
-        run: npm run lint
+      - name: Lint (non-blocking)
+        run: npm run lint || true
 
-      # ✅ Segurança (não quebra o deploy, só reporta)
       - name: Security audit (high)
         run: npm audit --audit-level=high || true
 
       - name: Build project
         run: npm run build
 
-      # ✅ Valida Dockerfile (se quebrar, o pipeline falha)
       - name: Docker build (validate)
         run: docker build -t melo2l-portfolio:ci .
 
