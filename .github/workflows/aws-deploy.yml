@@ -42,5 +42,5 @@ jobs:
               "sudo docker pull ${{ secrets.ECR_REPOSITORY_URL }}:latest",
               "sudo docker stop portfolio || true",
               "sudo docker rm portfolio || true",
-              "sudo docker run -d -p 80:80 --name portfolio ${{ secrets.ECR_REPOSITORY_URL }}:latest"
+              "sudo docker run -d --restart always --name portfolio -p 127.0.0.1:8080:80 ${{ secrets.ECR_REPOSITORY_URL }}:latest"
             ]'
