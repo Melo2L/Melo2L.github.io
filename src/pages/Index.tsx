@@ -39,9 +39,11 @@ const content = {
         link: "https://github.com/Melo2L/projeto-final-devops",
       },
       {
-        title: "Working...",
-        description: "Working...",
-        tech: [],
+        title: "DevOps Portfolio AWS (This Website)",
+        description:
+          "Production-ready DevOps portfolio deployed on AWS using Terraform, Docker CI/CD and Cloudflare HTTPS.",
+        tech: ["AWS", "Terraform", "Docker", "Linux"],
+        link: "https://github.com/Melo2L/Melo2L.github.io",
       },
       {
         title: "Working...",
@@ -81,9 +83,11 @@ const content = {
         link: "https://github.com/Melo2L/projeto-final-devops",
       },
       {
-        title: "Em desenvolvimento...",
-        description: "Em desenvolvimento...",
-        tech: [],
+        title: "Portfólio DevOps AWS (Este Site)",
+        description:
+          "Portfólio DevOps em produção na AWS usando Terraform, Docker CI/CD e HTTPS com Cloudflare.",
+        tech: ["AWS", "Terraform", "Docker", "Linux"],
+        link: "https://github.com/Melo2L/Melo2L.github.io",
       },
       {
         title: "Em desenvolvimento...",
@@ -118,14 +122,17 @@ const content = {
     projectsList: [
       {
         title: "Proyecto SurfPulse",
-        description: "Pipeline de despliegue automatizado usando Docker, Linux, Python",
+        description:
+          "Pipeline de despliegue automatizado usando Docker, Linux, Python",
         tech: ["Docker", "Python", "Linux"],
         link: "https://github.com/Melo2L/projeto-final-devops",
       },
       {
-        title: "En progreso...",
-        description: "En progreso...",
-        tech: [],
+        title: "Portafolio DevOps AWS (Este Sitio)",
+        description:
+          "Portafolio DevOps en producción en AWS usando Terraform, Docker CI/CD y HTTPS con Cloudflare.",
+        tech: ["AWS", "Terraform", "Docker", "Linux"],
+        link: "https://github.com/Melo2L/Melo2L.github.io",
       },
       {
         title: "En progreso...",
@@ -160,14 +167,17 @@ const content = {
     projectsList: [
       {
         title: "Projet SurfPulse",
-        description: "Pipeline de déploiement automatisé avec Docker, Linux, Python",
+        description:
+          "Pipeline de déploiement automatisé avec Docker, Linux, Python",
         tech: ["Docker", "Python", "Linux"],
         link: "https://github.com/Melo2L/projeto-final-devops",
       },
       {
-        title: "En cours...",
-        description: "En cours...",
-        tech: [],
+        title: "Portfolio DevOps AWS (Ce Site)",
+        description:
+          "Portfolio DevOps en production sur AWS avec Terraform, Docker CI/CD et HTTPS via Cloudflare.",
+        tech: ["AWS", "Terraform", "Docker", "Linux"],
+        link: "https://github.com/Melo2L/Melo2L.github.io",
       },
       {
         title: "En cours...",
@@ -202,14 +212,17 @@ const content = {
     projectsList: [
       {
         title: "SurfPulse Projekt",
-        description: "Automatisierte Deployment-Pipeline mit Docker, Linux, Python",
+        description:
+          "Automatisierte Deployment-Pipeline mit Docker, Linux, Python",
         tech: ["Docker", "Python", "Linux"],
         link: "https://github.com/Melo2L/projeto-final-devops",
       },
       {
-        title: "In Arbeit...",
-        description: "In Arbeit...",
-        tech: [],
+        title: "DevOps Portfolio AWS (Diese Website)",
+        description:
+          "DevOps-Portfolio in Produktion auf AWS mit Terraform, Docker CI/CD und HTTPS über Cloudflare.",
+        tech: ["AWS", "Terraform", "Docker", "Linux"],
+        link: "https://github.com/Melo2L/Melo2L.github.io",
       },
       {
         title: "In Arbeit...",
@@ -275,7 +288,11 @@ const Index = () => {
               {currentContent.formation}
             </h2>
             {/* Imagem */}
-            <a href="https://www.tokioschool.com/en/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.tokioschool.com/en/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 src="/Melo-uploads/502b25c6-647d-406a-aebd-0dce734b0a19.png"
                 alt={currentContent.formationImageAlt}
@@ -284,7 +301,9 @@ const Index = () => {
               />
             </a>
             {/* Texto centralizado abaixo da imagem */}
-            <p className="text-base text-gray-200">{currentContent.formationDescription}</p>
+            <p className="text-base text-gray-200">
+              {currentContent.formationDescription}
+            </p>
           </div>
         </section>
 
@@ -303,11 +322,13 @@ const Index = () => {
         </div>
 
         {/* Projects Section */}
-        <ProjectsSection content={{
-          ...currentContent,
-          recentProjects: currentContent.recentProjects,
-          projectsList: currentContent.projectsList,
-        }} />
+        <ProjectsSection
+          content={{
+            ...currentContent,
+            recentProjects: currentContent.recentProjects,
+            projectsList: currentContent.projectsList,
+          }}
+        />
 
         {/* Sidebar Contact Buttons */}
         <ContactSidebarButtons scrollToAbout={scrollToAbout} />
