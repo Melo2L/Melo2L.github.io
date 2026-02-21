@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -29,17 +31,17 @@ jobs:
         run: |
           docker build \
             -t ${{ secrets.ECR_REPOSITORY_URL }}:latest \
-            -t ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }} \
+            -t ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.event.workflow_run.head_sha }} \
             .
 
       - name: Push image to ECR (latest + sha)
         run: |
           docker push ${{ secrets.ECR_REPOSITORY_URL }}:latest
-          docker push ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}
+          docker push ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.event.workflow_run.head_sha }}
 
       - name: Deploy on EC2 via SSM (SHA tag)
         env:
-          IMAGE: ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}
+          IMAGE: ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.event.workflow_run.head_sha }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           ECR_HOST: ${{ secrets.ECR_REPOSITORY_URL }}
         run: |
@@ -50,6 +52,7 @@ jobs:
             --document-name "AWS-RunShellScript" \
             --comment "Deploy portfolio" \
             --parameters "commands=[
+              \"set -e\",
               \"sudo systemctl start docker\",
               \"aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $ECR_REGISTRY\",
               \"sudo docker pull $IMAGE\",
