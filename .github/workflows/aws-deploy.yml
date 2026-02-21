@@ -46,8 +46,8 @@ jobs:
             --parameters commands='[
               "sudo systemctl start docker",
               "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin $(echo ${{ secrets.ECR_REPOSITORY_URL }} | cut -d\"/\" -f1)",
-              "sudo docker pull ${{ secrets.ECR_REPOSITORY_URL }}:latest",
+              "sudo docker pull ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}",
               "sudo docker stop portfolio || true",
               "sudo docker rm portfolio || true",
-              "sudo docker run -d --restart always --name portfolio -p 127.0.0.1:8080:80 ${{ secrets.ECR_REPOSITORY_URL }}:latest"
+              "sudo docker run -d --restart always --name portfolio -p 127.0.0.1:8080:80 ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}"
             ]'
