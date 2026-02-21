@@ -25,13 +25,17 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Docker image
+      - name: Build Docker image (latest + sha)
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URL }}:latest .
+          docker build \
+            -t ${{ secrets.ECR_REPOSITORY_URL }}:latest \
+            -t ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }} \
+            .
 
-      - name: Push image to ECR
+      - name: Push image to ECR (latest + sha)
         run: |
           docker push ${{ secrets.ECR_REPOSITORY_URL }}:latest
+          docker push ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}
 
       - name: Deploy on EC2 via SSM
         run: |
