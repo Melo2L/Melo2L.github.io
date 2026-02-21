@@ -37,17 +37,24 @@ jobs:
           docker push ${{ secrets.ECR_REPOSITORY_URL }}:latest
           docker push ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}
 
-      - name: Deploy on EC2 via SSM
+      - name: Deploy on EC2 via SSM (SHA tag)
+        env:
+          IMAGE: ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ECR_HOST: ${{ secrets.ECR_REPOSITORY_URL }}
         run: |
+          ECR_REGISTRY="$(echo "$ECR_HOST" | cut -d'/' -f1)"
+
           aws ssm send-command \
             --instance-ids ${{ secrets.EC2_INSTANCE_ID }} \
             --document-name "AWS-RunShellScript" \
-            --comment "Deploy portfolio container" \
-            --parameters commands='[
-              "sudo systemctl start docker",
-              "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin $(echo ${{ secrets.ECR_REPOSITORY_URL }} | cut -d\"/\" -f1)",
-              "sudo docker pull ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}",
-              "sudo docker stop portfolio || true",
-              "sudo docker rm portfolio || true",
-              "sudo docker run -d --restart always --name portfolio -p 127.0.0.1:8080:80 ${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}"
-            ]'
+            --comment "Deploy portfolio container: $IMAGE" \
+            --parameters "commands=[
+              \"sudo systemctl start docker\",
+              \"aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $ECR_REGISTRY\",
+              \"sudo docker pull $IMAGE\",
+              \"sudo docker stop portfolio || true\",
+              \"sudo docker rm portfolio || true\",
+              \"sudo docker run -d --restart always --name portfolio -p 127.0.0.1:8080:80 $IMAGE\",
+              \"sudo docker image prune -f || true\"
+            ]"
