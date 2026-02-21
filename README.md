@@ -1,37 +1,45 @@
 # DevOps Portfolio AWS
 
-Production-ready DevOps portfolio deployed on AWS using Infrastructure as Code, containerization, CI/CD automation, and secure cloud networking.
+Production-ready DevOps portfolio deployed on AWS using Infrastructure as Code, CI/CD automation, containerization, and secure cloud networking practices.
 
-Live site: https://melo-devops.com/
+Live website: https://melo-devops.com/
 
 ---
 
 ## Project Overview
 
-This project represents a real-world DevOps portfolio environment designed to demonstrate practical cloud engineering and automation skills rather than a simple static website deployment.
+This project represents a real-world DevOps portfolio designed to demonstrate practical cloud engineering, automation, and production deployment practices.
 
-Key objectives:
+The goal was not simply to build a personal website, but to create a complete DevOps environment including:
 
-- Infrastructure provisioning using Terraform
-- Automated container deployment via CI/CD
-- Secure HTTPS delivery using Cloudflare
-- Reverse proxy architecture with Nginx
-- Cloud hosting on AWS EC2
-- Production-style DevOps workflow
+- Cloud infrastructure provisioning
+- Automated CI/CD pipelines
+- Containerized deployment
+- Security-first networking configuration
+- Production-style deployment workflow
+
+The project reflects hands-on DevOps practices aligned with modern industry standards.
 
 ---
 
 ## Architecture
 
-Cloudflare (DNS + SSL)  
+Cloudflare (DNS + SSL termination)  
 ↓  
-Nginx Reverse Proxy (AWS EC2)  
+AWS EC2 Instance  
+↓  
+Nginx Reverse Proxy  
 ↓  
 Docker Container (Portfolio Application)  
 ↓  
 Infrastructure provisioned via Terraform  
 
-This architecture ensures secure traffic handling, isolated application runtime, and automated infrastructure management.
+This architecture ensures:
+
+- Secure HTTPS delivery
+- Isolation of application runtime
+- Infrastructure reproducibility
+- Automated deployment workflow
 
 ---
 
@@ -39,94 +47,134 @@ This architecture ensures secure traffic handling, isolated application runtime,
 
 ### Cloud Infrastructure
 
-- AWS EC2 (Compute environment)
-- AWS ECR (Container registry)
-- AWS Systems Manager (Remote deployment)
-- Elastic IP for stable public access
+- AWS EC2 (compute environment)
+- AWS ECR (container registry)
+- AWS Systems Manager – SSM (remote deployment)
+- Elastic IP for stable DNS mapping
 - Security Groups for network control
 
-### DevOps and Automation
+### Infrastructure as Code
 
-- Terraform (Infrastructure as Code)
-- GitHub Actions (CI/CD pipeline)
+- Terraform provisioning:
+  - EC2 instance
+  - ECR repository
+  - IAM role for SSM
+  - Security Groups
+  - Networking configuration
+
+This guarantees reproducibility and consistent deployments.
+
+### DevOps & CI/CD
+
+- GitHub Actions pipeline automation
 - Docker containerization
-- Automated remote deployment workflow
+- Automated build and deployment workflow
+- Commit-based image versioning (SHA tagging)
 
-### Networking and Security
+### Networking & Security
 
-- Cloudflare DNS and SSL (Full Strict mode)
-- Origin SSL certificate installed on server
+- Cloudflare Full Strict SSL mode
+- Origin certificate installed on EC2
 - HTTPS enforcement
-- Nginx reverse proxy configuration
+- Reverse proxy via Nginx
+- Container exposed only via localhost binding
 
 ### Application Layer
 
 - React frontend
 - TypeScript
-- Tailwind CSS styling
+- Tailwind CSS
 
 ---
 
 ## CI/CD Pipeline
 
-The deployment workflow is fully automated:
+The deployment pipeline follows a structured DevOps workflow:
 
-1. Code pushed to GitHub repository
-2. GitHub Actions builds Docker image
-3. Image pushed to AWS ECR
-4. AWS Systems Manager executes remote deployment
-5. Container updated automatically on EC2
-6. Cloudflare handles HTTPS delivery
+### Quality Gates (Pre-Deploy)
 
-No manual server interaction is required.
+- ESLint code validation
+- TypeScript type checking
+- Production build validation
+- Dockerfile best practices analysis (Hadolint)
+- Container vulnerability scanning (Trivy)
+- Automated container smoke test
+
+Deployments are blocked if any quality or security check fails.
 
 ---
 
-## Infrastructure as Code
+### Container Build & Versioning
 
-Terraform is used to provision and manage:
+Docker images are tagged using:
 
-- EC2 compute instance
-- Container registry (ECR)
-- IAM roles for Systems Manager access
-- Security Groups
-- Networking configuration
+- `latest` for compatibility
+- Commit SHA for traceability and rollback capability
 
-This approach ensures consistency, reproducibility, and scalability.
+This approach ensures immutable artifacts and reliable deployments.
+
+---
+
+### Automated Deployment Flow
+
+1. Code pushed to GitHub repository
+2. CI Quality Gates executed
+3. Docker image built and security scanned
+4. Image pushed to AWS ECR
+5. AWS SSM executes remote deployment on EC2
+6. Container updated automatically
+7. Cloudflare delivers secure HTTPS traffic
+
+No manual deployment steps are required.
 
 ---
 
 ## Security Configuration
 
-Security measures implemented:
+Implemented security practices include:
 
-- Cloudflare Full (Strict) SSL configuration
-- Origin certificate installed on EC2
-- Container exposed only via localhost binding
-- Public access restricted through Nginx proxy
-- Automatic HTTP to HTTPS redirection
+- Full Strict SSL via Cloudflare
+- Origin certificate on EC2
+- Container restricted to localhost exposure
+- Reverse proxy managing external access
+- Automated vulnerability scanning in CI pipeline
+- Immutable container image versioning
 
-This setup follows common production security practices.
+This reflects production-oriented DevOps security practices.
 
 ---
 
-## Future Improvements
+## Monitoring and Reliability (Next Steps)
 
-Planned enhancements include:
+Planned improvements include:
 
-- Blue/Green zero-downtime deployments
-- CloudWatch monitoring and alerting
-- External uptime monitoring integration
-- Restricting access strictly to Cloudflare IP ranges
-- Auto-scaling configuration
+- CloudWatch alarms and metrics
+- External uptime monitoring
+- Zero-downtime deployment strategy
+- Security group restriction to Cloudflare IP ranges
 - Enhanced observability stack
+
+---
+
+## Technical Decisions
+
+Key decisions made during the project:
+
+- Terraform chosen for Infrastructure as Code reproducibility
+- Docker for consistent application runtime
+- GitHub Actions for CI/CD simplicity and integration
+- AWS SSM instead of SSH for secure remote deployment
+- Cloudflare for SSL termination and DNS security
+- Commit SHA tagging for artifact traceability
+
+These decisions reflect modern DevOps operational practices.
 
 ---
 
 ## Author
 
 Alisson Melo  
-DevOps Engineer Student | Cloud Infrastructure and Automation Focus  
+DevOps Engineer Student | Cloud Infrastructure & Automation Focus  
 
 GitHub: https://github.com/Melo2L  
 Portfolio: https://melo-devops.com/
@@ -135,10 +183,11 @@ Portfolio: https://melo-devops.com/
 
 ## Purpose of This Project
 
-This portfolio was built to demonstrate hands-on DevOps capabilities including:
+This portfolio demonstrates practical DevOps capabilities including:
 
 - Infrastructure automation
 - CI/CD pipeline design
-- Secure cloud deployment
-- Production-ready architecture practices
+- Container orchestration fundamentals
+- Secure cloud deployment practices
+- Production-grade environment configuration
 - End-to-end DevOps workflow implementation
