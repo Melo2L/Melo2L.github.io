@@ -53,23 +53,24 @@ const HeroSection = ({ content, language = "en" }: HeroSectionProps) => {
         <div className="flex items-center justify-center space-x-3 mt-2 mb-0">
           <h2 className="text-3xl md:text-4xl font-light text-gray-300 mb-0 flex items-center">
             Alisson Melo
-            <span className="flex flex-col items-start ml-2">
-              {/* BR flag on top, ES below, altura total ≈ altura de 1 letra */}
-              <img
-                src="/Melo-uploads/853331bc-a696-4230-b3c5-e8f93e1df2c9.png"
-                alt="Bandeira do Brasil"
-                className={`${flagHeight} cursor-pointer rounded-sm border border-gray-400 shadow-sm`}
-                title={tooltip}
-                style={{ display: "inline", marginBottom: "1px" }}
-              />
-              <img
-                src="/Melo-uploads/d6aecd6e-df8a-45d4-ade5-55242ad91a73.png"
-                alt="Bandeira da Espanha"
-                className={`${flagHeight} cursor-pointer rounded-sm border border-gray-400 shadow-sm`}
-                title={tooltip}
-                style={{ display: "inline", marginTop: "1px" }}
-              />
-            </span>
+{/*
+<span className="flex flex-col items-start ml-2">
+  <img
+    src="/Melo-uploads/853331bc-a696-4230-b3c5-e8f93e1df2c9.png"
+    alt="Bandeira do Brasil"
+    className={`${flagHeight} cursor-pointer rounded-sm border border-gray-400 shadow-sm`}
+    title={tooltip}
+    style={{ display: "inline", marginBottom: "1px" }}
+  />
+  <img
+    src="/Melo-uploads/d6aecd6e-df8a-45d4-ade5-55242ad91a73.png"
+    alt="Bandeira da Espanha"
+    className={`${flagHeight} cursor-pointer rounded-sm border border-gray-400 shadow-sm`}
+    title={tooltip}
+    style={{ display: "inline", marginTop: "1px" }}
+  />
+</span>
+*/}
           </h2>
         </div>
       </div>
